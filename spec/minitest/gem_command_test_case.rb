@@ -5,12 +5,18 @@ require "tmpdir"
 require "fileutils"
 
 class Gem::Create::TestCase < MiniTest::Spec
+  before do
+    self.class.rm_tmpdir
+  end
+
   def self.tmpdir
     @tmpdir ||= Dir.mktmpdir
   end
 
   def self.rm_tmpdir
-    FileUtils.rm_r(tmpdir)
+    FileUtils.rm_r(tmpdir) if File.exists?(tmpdir)
+  ensure
+    @tmpdir = nil
   end
 
   def ui
@@ -26,9 +32,7 @@ class Gem::Create::TestCase < MiniTest::Spec
   def run_command(*args)
     cmd = Gem::Commands::CreateCommand.new
 
-    # capture_io {
-      use_ui { cmd.invoke *args }
-    # }
+    capture_io { use_ui { cmd.invoke *args } }
 
     return ui.output, ui.error
   end

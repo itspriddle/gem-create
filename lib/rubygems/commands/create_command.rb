@@ -29,7 +29,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   # Private: Adds command line switches used by this plugin.
   def add_options!
     add_option "--force", "Overwrite existing files" do |force, options|
-      options[:force] = !! force
+      options[:force] = force
     end
 
     add_option "--git GIT_PATH", "The path to git" do |git, options|
@@ -80,7 +80,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   #
   # Returns true or false.
   def force?
-    options[:force]
+    !! options[:force]
   end
 
   # Private: The directory that contains template files to use when creating
