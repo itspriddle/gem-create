@@ -6,12 +6,16 @@ class Gem::Commands::CreateCommand < Gem::Command
   TEMPLATES = File.expand_path('../../create/templates', __FILE__)
 
   def initialize
-    super "create", "Create a new gem"
+    super "create", "Creates a new RubyGem skeleton"
     add_options!
   end
 
   def execute
     render!
+  end
+
+  def usage
+    "gem create GEM_NAME"
   end
 
   private
