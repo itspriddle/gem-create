@@ -4,7 +4,7 @@ This is my gem template.
 There are many like it, but this one is mine.
 
 [Build Icon]: https://secure.travis-ci.org/itspriddle/gem-create.png?branch=master
-[Build Status]: https://travis-ci.org/itspriddle/gem-create
+[Build Status]: http://travis-ci.org/itspriddle/gem-create
 
 ## Note on Patches/Pull Requests
 

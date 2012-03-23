@@ -25,7 +25,7 @@ describe Gem::Commands::CreateCommand do
     it_renders "README.markdown" do |data|
       data.must_match "# SomeGem [![SomeGem Build Status"
       data.must_match "https://secure.travis-ci.org/bender/some_gem.png?branch=master"
-      data.must_match "https://travis-ci.org/bender/some_gem"
+      data.must_match "http://travis-ci.org/bender/some_gem"
       data.must_match "Copyright (c) #{Time.now.year} Bender Rodriguez"
     end
 
