@@ -4,7 +4,7 @@ require "minitest/spec"
 require "tmpdir"
 require "fileutils"
 
-class GemCommandSpec < MiniTest::Spec
+class Gem::Create::TestCase < MiniTest::Spec
   def self.tmpdir
     @tmpdir ||= Dir.mktmpdir
   end
@@ -47,5 +47,5 @@ class GemCommandSpec < MiniTest::Spec
   end
 end
 
-MiniTest::Spec.register_spec_type /Gem::Commands/, GemCommandSpec
-MiniTest::Unit.after_tests { GemCommandSpec.rm_tmpdir }
+MiniTest::Spec.register_spec_type /Gem::Commands/, Gem::Create::TestCase
+MiniTest::Unit.after_tests { Gem::Create::TestCase.rm_tmpdir }
