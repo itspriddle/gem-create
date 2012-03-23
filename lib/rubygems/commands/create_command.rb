@@ -52,11 +52,11 @@ class Gem::Commands::CreateCommand < Gem::Command
 
   def create_gem!
     manifest[:directories].each do |dir|
-      FileUtils.mkdir_p dir.gsub('gem_name', name)
+      FileUtils.mkdir_p dir.gsub('gem_name', builder.name)
     end
 
     manifest[:files].each do |file|
-      dest = file.gsub('gem_name', name).gsub(/\.erb$/, '')
+      dest = file.gsub('gem_name', builder.name).gsub(/\.erb$/, '')
       write_template_file(file, dest)
     end
   end
@@ -110,9 +110,5 @@ class Gem::Commands::CreateCommand < Gem::Command
 
   def builder
     @builder ||= Gem::Create::Builder.new(get_one_gem_name, options)
-  end
-
-  def name
-    builder.name
   end
 end
