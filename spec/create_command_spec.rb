@@ -43,16 +43,21 @@ describe Gem::Commands::CreateCommand do
       data.must_match %r{s\.email\s*= "bender@planex\.com"}
     end
 
-    it_renders "Rakefile"
+    it_renders "lib/some_gem.rb" do |data|
+      data.must_match 'require "some_gem/version"'
+    end
 
-    it_renders "Gemfile"
-
-    it_renders "lib/some_gem.rb"
-
-    it_renders "lib/some_gem/version.rb"
+    it_renders "lib/some_gem/version.rb" do |data|
+      data.must_match "module SomeGem"
+      data.must_match "  VERSION = Version = '0.0.0'"
+    end
 
     it_renders "spec/spec_helper.rb"
 
     it_renders "spec/some_gem_spec.rb"
+
+    it_renders "Rakefile"
+
+    it_renders "Gemfile"
   end
 end
