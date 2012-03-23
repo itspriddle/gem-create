@@ -8,7 +8,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   # Default path to templates provided by this plugin.
   TEMPLATES = File.expand_path('../../create/templates', __FILE__)
 
-  # Initializes the plugin
+  # Initializes the plugin.
   def initialize
     super "create", "Creates a new RubyGem skeleton"
     add_options!
@@ -19,7 +19,7 @@ class Gem::Commands::CreateCommand < Gem::Command
     create_gem!
   end
 
-  # The usage banner displayed for `gem create --help`
+  # The usage banner displayed for `gem create --help`.
   def usage
     "gem create GEM_NAME"
   end
@@ -127,6 +127,14 @@ class Gem::Commands::CreateCommand < Gem::Command
     end
   end
 
+  # Returns true if the given file can be written.
+  #
+  # A file can be written if the user specified `--force` via the command
+  # line, or the file does not yet exist.
+  #
+  # file - Path to the file to check.
+  #
+  # Returns true or false.
   def can_write_file?(file)
     force? || ! File.exists?(file)
   end
