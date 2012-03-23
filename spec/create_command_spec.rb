@@ -61,6 +61,10 @@ describe Gem::Commands::CreateCommand do
     it_renders "Rakefile"
 
     it_renders "Gemfile"
+
+    it_renders ".travis.yml" do |data|
+      data.must_match "recipients:\n      - bender@planex.com"
+    end
   end
 
   describe "custom template directory" do

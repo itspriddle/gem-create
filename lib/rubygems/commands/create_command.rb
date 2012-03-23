@@ -107,7 +107,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   def manifest
     @manifest ||= Hash.new.tap do |h|
       template_dir do
-        templates       = Dir["**/*"]
+        templates       = Dir.glob("**/*", File::FNM_DOTMATCH).reject { |t| t =~ /\.\.?$/ }
         h[:files]       = templates.reject { |t| File.directory?(t) }
         h[:directories] = templates.select { |t| File.directory?(t) }
       end
