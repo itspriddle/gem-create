@@ -32,6 +32,14 @@ class Gem::Commands::CreateCommand < Gem::Command
     add_option "--email EMAIL", "The author's email address used in gemspec" do |email, options|
       options[:email] = email
     end
+
+    add_option "--template-directory DIR", "A custom template directory to use" do |directory, options|
+      if File.directory?(directory)
+        options[:template_directory] = directory
+      else
+        raise "Directory #{directory.inspect} doesn't exist!"
+      end
+    end
   end
 
   def render!
@@ -45,9 +53,15 @@ class Gem::Commands::CreateCommand < Gem::Command
     end
   end
 
+  def template_dir
+    dir = options[:template_directory] || TEMPLATES
+    Dir.chdir(dir) { return yield } if block_given?
+    dir
+  end
+
   def manifest
     @manifest ||= Hash.new.tap do |h|
-      Dir.chdir TEMPLATES do
+      template_dir do
         templates       = Dir["**/*"]
         h[:files]       = templates.reject { |t| File.directory?(t) }
         h[:directories] = templates.select { |t| File.directory?(t) }
@@ -65,7 +79,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   end
 
   def read_file(file)
-    Dir.chdir TEMPLATES do
+    template_dir do
       if File.exists?(file)
         File.read(file)
       else

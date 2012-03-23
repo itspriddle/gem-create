@@ -10,6 +10,7 @@ describe Gem::Commands::CreateCommand do
     out.must_match "--author"
     out.must_match "--github-name"
     out.must_match "--email"
+    out.must_match "--template-directory"
   end
 
   describe "generated files" do
@@ -59,5 +60,12 @@ describe Gem::Commands::CreateCommand do
     it_renders "Rakefile"
 
     it_renders "Gemfile"
+  end
+
+  describe "custom template directory" do
+    it "raises with a non-existing directory" do
+      proc { run_command *%W(some_gem --template-dir /dev/null/asdf) }.
+        must_raise RuntimeError, 'Directory "/dev/null/asdf" doesn\'t exist!'
+    end
   end
 end
