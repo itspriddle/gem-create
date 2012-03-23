@@ -127,7 +127,7 @@ class Gem::Commands::CreateCommand < Gem::Command
     end
   end
 
-  # Returns true if the given file can be written.
+  # Private: Returns true if the given file can be written.
   #
   # A file can be written if the user specified `--force` via the command
   # line, or the file does not yet exist.
