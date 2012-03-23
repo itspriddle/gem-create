@@ -11,7 +11,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   end
 
   def execute
-    render!
+    create_gem!
   end
 
   def usage
@@ -50,7 +50,7 @@ class Gem::Commands::CreateCommand < Gem::Command
     end
   end
 
-  def render!
+  def create_gem!
     manifest[:directories].each do |dir|
       FileUtils.mkdir_p dir.gsub('gem_name', name)
     end
