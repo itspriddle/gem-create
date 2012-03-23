@@ -21,6 +21,10 @@ class Gem::Commands::CreateCommand < Gem::Command
   private
 
   def add_options!
+    add_option "--force", "Overwrite existing files" do |force, options|
+      options[:force] = !! force
+    end
+
     add_option "--git GIT_PATH", "The path to git" do |git, options|
       options[:git] = git
     end
@@ -57,6 +61,10 @@ class Gem::Commands::CreateCommand < Gem::Command
     end
   end
 
+  def force?
+    options[:force]
+  end
+
   def template_dir
     dir = options[:template_directory] || TEMPLATES
     Dir.chdir(dir) { return yield } if block_given?
@@ -74,8 +82,16 @@ class Gem::Commands::CreateCommand < Gem::Command
   end
 
   def write_template_file(source, dest)
-    s = render_file(source)
-    File.open(dest, "w") { |file| file.puts s }
+    if can_write_file?(dest)
+      s = render_file(source)
+      File.open(dest, "w") { |file| file.puts s }
+    else
+      raise "Can't create #{dest.inspect} as it already exists!"
+    end
+  end
+
+  def can_write_file?(file)
+    force? || ! File.exists?(file)
   end
 
   def render_file(file)

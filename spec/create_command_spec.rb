@@ -6,6 +6,7 @@ describe Gem::Commands::CreateCommand do
     err.must_equal "", "should not write to STDERR"
 
     out.must_match "Usage: gem create GEM_NAME [options]"
+    out.must_match "--force"
     out.must_match "--git"
     out.must_match "--author"
     out.must_match "--github-name"
