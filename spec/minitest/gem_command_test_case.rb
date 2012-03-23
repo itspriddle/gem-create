@@ -42,7 +42,7 @@ class Gem::Create::TestCase < MiniTest::Spec
   def self.it_renders(path)
     it "renders #{path}" do
       file = File.join(self.class.tmpdir, path)
-      assert File.exists?(file), "Expected #{path.inspect} to exist"
+      File.exists?(file).must_equal true, "Expected #{path.inspect} to exist"
 
       yield File.read(file) if block_given?
     end
