@@ -16,6 +16,7 @@ class Gem::Commands::CreateCommand < Gem::Command
 
   # Creates the gem.
   def execute
+    @gem_name = get_one_gem_name
     create_gem!
   end
 
@@ -172,6 +173,6 @@ class Gem::Commands::CreateCommand < Gem::Command
   #
   # Returns a Gem::Create::Builder instance.
   def builder
-    @builder ||= Gem::Create::Builder.new(get_one_gem_name, options)
+    @builder ||= Gem::Create::Builder.new(@gem_name, options)
   end
 end
