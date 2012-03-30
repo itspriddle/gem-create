@@ -3,7 +3,7 @@ $:.unshift 'lib'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = "gem-create"
-  s.version     = "0.1.0"
+  s.version     = "0.0.1"
   s.homepage    = "https://github.com/itspriddle/gem-create"
   s.authors     = ["Joshua Priddle"]
   s.email       = "jpriddle@me.com"
