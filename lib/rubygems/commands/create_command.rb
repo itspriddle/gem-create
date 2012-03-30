@@ -28,6 +28,10 @@ class Gem::Commands::CreateCommand < Gem::Command
     def gem_class
       name.split('-').map { |seg| seg.gsub(/(?:^|_| )(.)/) { $1.upcase } }.join('::')
     end
+
+    def get_binding
+      binding
+    end
   end
 
   # Initializes the plugin.
@@ -205,7 +209,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   # Returns the rendered template as a String.
   def render_file(file)
     data = in_template_directory { File.read(file) }
-    ERB.new(data).result(builder.send(:binding))
+    ERB.new(data).result(builder.get_binding)
   end
 
   # Private: Creates/returns a Gem::Create::Builder instance. This will be
