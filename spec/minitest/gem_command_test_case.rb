@@ -39,12 +39,17 @@ class Gem::Commands::CreateCommand::TestCase < MiniTest::Spec
   #     end
   #
   #     it_renders "Gemspec"
-  def self.it_renders(path)
+  def self.it_renders(path, options = {})
     it "renders #{path}" do
-      file = File.join(self.class.tmpdir, path)
-      File.exists?(file).must_equal true, "Expected #{path.inspect} to exist"
+      Dir.chdir(self.class.tmpdir) do
+        dest = options.fetch(:in, @cmd.send(:destination_directory))
+        file = File.join(dest, path)
 
-      yield File.read(file) if block_given?
+        File.exists?(file).must_equal true,
+          "Expected #{File.expand_path(path).inspect} to exist"
+
+        yield File.read(file) if block_given?
+      end
     end
   end
 
@@ -58,11 +63,11 @@ class Gem::Commands::CreateCommand::TestCase < MiniTest::Spec
   # Returns an Array, [0] is the standard output of the command, [1] is the
   # error output.
   def run_command(*args)
-    cmd = Gem::Commands::CreateCommand.new
+    @cmd = Gem::Commands::CreateCommand.new
 
     Dir.chdir(self.class.tmpdir) do
       Gem::DefaultUserInteraction.use_ui(ui) do
-        capture_io { cmd.invoke *args }
+        capture_io { @cmd.invoke *args }
       end
     end
 

@@ -70,4 +70,16 @@ describe Gem::Commands::CreateCommand do
         must_raise RuntimeError, 'Directory "/dev/null/asdf" doesn\'t exist!'
     end
   end
+
+  describe "custom destination directory" do
+    before do
+      run_command *%W(some_gem --destination-directory blah)
+    end
+
+    %W(README.markdown LICENSE some_gem.gemspec lib/some_gem.rb
+       lib/some_gem/version.rb spec/spec_helper.rb spec/some_gem_spec.rb
+       Rakefile Gemfile .travis.yml).each do |template|
+      it_renders template, :in => "blah"
+    end
+  end
 end

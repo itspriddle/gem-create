@@ -59,6 +59,10 @@ class Gem::Commands::CreateCommand < Gem::Command
     add_option "-f", "--force", "Overwrite existing files" do |v, options|
       options[:force] = true
     end
+
+    add_option "-d", "--destination-directory DIR", "Destination directory" do |directory, options|
+      options[:destination_directory] = directory
+    end
 #
 #     add_option "-n", "--dry-run", "Don't actually create any files, ",
 #                                   "just show what would be created" do |v, options|
@@ -122,7 +126,7 @@ class Gem::Commands::CreateCommand < Gem::Command
   #
   # Defaults to `Dir.pwd`.
   def destination_directory
-    File.expand_path(options[:destination_directory] || Dir.pwd)
+    File.expand_path(options[:destination_directory] || File.join(Dir.pwd, @gem_name))
   end
 
   # Private: The directory containing template files for the new gem.
