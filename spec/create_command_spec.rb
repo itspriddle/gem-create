@@ -67,14 +67,19 @@ describe Gem::Commands::CreateCommand do
 
   describe "custom template directory" do
     it "raises with a non-existing directory" do
-      proc { run_command *%W(some_gem --template-dir /dev/null/asdf) }.
+      proc { run_command *%W(some_gem --template-directory /dev/null/asdf) }.
         must_raise RuntimeError, 'Directory "/dev/null/asdf" doesn\'t exist!'
     end
   end
 
   describe "custom destination directory" do
     before do
-      run_command *%W(some_gem --destination-directory blah)
+      run_command *%W(
+        some_gem
+        --data-file #{fixtures_path}/skel.yml
+        --template-directory #{fixtures_path}/skel
+        --destination-directory blah
+      )
     end
 
     %W(README.markdown LICENSE some_gem.gemspec lib/some_gem.rb
