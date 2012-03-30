@@ -2,8 +2,8 @@
 
 > This is my gem template. There are many like it, but this one is mine.
 
-`gem-create` provides a `gem create` command which can be used to generate a
-skeleton for a new RubyGem.
+`gem-create` is a RubyGems plugin. It provides a `gem create` command which
+can be used to generate a skeleton for working on a new RubyGem.
 
 [Build Icon]: https://secure.travis-ci.org/itspriddle/gem-create.png?branch=master
 [Build Status]: http://travis-ci.org/itspriddle/gem-create
