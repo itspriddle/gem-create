@@ -4,10 +4,10 @@ require "minitest/spec"
 require "tmpdir"
 require "fileutils"
 
-class Gem::Create::TestCase < MiniTest::Spec
+class Gem::Commands::CreateCommand::TestCase < MiniTest::Spec
   # Apply this TestCase to any specs with
   # `describe Gem::Commands::CreateCommand`
-  register_spec_type /Gem::Commands::CreateCommand/, Gem::Create::TestCase
+  register_spec_type /Gem::Commands::CreateCommand/, self
 
   # Clear the tmpdir if needed.
   before { self.class.rm_tmpdir }
@@ -55,8 +55,8 @@ class Gem::Create::TestCase < MiniTest::Spec
 
   # Run the CreateCommand with the specified arguments.
   #
-  # Returns an Array, [0] is the output of the command, [1] is the error
-  # output.
+  # Returns an Array, [0] is the standard output of the command, [1] is the
+  # error output.
   def run_command(*args)
     cmd = Gem::Commands::CreateCommand.new
 
@@ -68,6 +68,10 @@ class Gem::Create::TestCase < MiniTest::Spec
 
     return ui.output, ui.error
   end
+
+  def fixtures_path
+    File.expand_path('../../fixtures', __FILE__)
+  end
 end
 
-MiniTest::Unit.after_tests { Gem::Create::TestCase.rm_tmpdir }
+MiniTest::Unit.after_tests { Gem::Commands::CreateCommand::TestCase.rm_tmpdir }

@@ -7,20 +7,17 @@ describe Gem::Commands::CreateCommand do
 
     out.must_match "Usage: gem create GEM_NAME [options]"
     out.must_match "--force"
-    out.must_match "--git"
-    out.must_match "--author"
-    out.must_match "--github-name"
-    out.must_match "--email"
     out.must_match "--template-directory"
+    out.must_match "--data-file"
+    out.must_match "--template-directory ~/.gem/skel --data-file ~/.gem/skel.yml"
   end
 
   describe "generated files" do
     before do
       run_command *%W(
         some_gem
-        --author Bender\ Rodriguez
-        --email bender@planex.com
-        --github bender
+        --data-file #{fixtures_path}/skel.yml
+        --template-directory #{fixtures_path}/skel
       )
     end
 
