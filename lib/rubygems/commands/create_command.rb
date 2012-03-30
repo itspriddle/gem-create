@@ -60,7 +60,8 @@ class Gem::Commands::CreateCommand < Gem::Command
       options[:force] = true
     end
 
-    add_option "-d", "--destination-directory DIR", "Destination directory" do |directory, options|
+    add_option "-d", "--destination-directory PATH", "Destination directory,",
+                                                     "$PWD/GEM_NAME by default" do |directory, options|
       options[:destination_directory] = directory
     end
 #
@@ -69,7 +70,7 @@ class Gem::Commands::CreateCommand < Gem::Command
 #       options[:dry_run] = true
 #     end
 
-    add_option :Skeleton, "--template-directory DIR", "A custom template directory to use" do |directory, options|
+    add_option :Skeleton, "--template-directory PATH", "A custom template directory to use" do |directory, options|
       if File.directory?(directory)
         options[:template_directory] = directory
       else

@@ -45,6 +45,8 @@ See `spec/fixtures/skel` in this repo for an example gem skeleton.
 
       Options:
         -f, --force                      Overwrite existing files
+        -d, --destination-directory DIR  Destination directory,
+                                         $PWD/GEM_NAME by default
 
 
       Skeleton Options:

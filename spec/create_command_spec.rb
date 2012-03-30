@@ -7,8 +7,9 @@ describe Gem::Commands::CreateCommand do
 
     out.must_match "Usage: gem create GEM_NAME [options]"
     out.must_match "--force"
-    out.must_match "--template-directory"
-    out.must_match "--data-file"
+    out.must_match "--template-directory PATH"
+    out.must_match "--data-file PATH"
+    out.must_match "--destination-directory PATH"
     out.must_match "--template-directory ~/.gem/skel --data-file ~/.gem/skel.yml"
   end
 
